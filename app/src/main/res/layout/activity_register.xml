@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bgGray"
+                android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/register_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/head_tool"
+        android:background="@color/bgWidgetBule"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/register_close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FF5ABFCD"
+            android:text="@string/register_close"
+            android:textColor="#FFFDFDFE"/>
+
+        <TextView
+            android:textSize="18sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/register"
+            android:textColor="@color/bgTextWhite"/>
+
+        <Button
+            android:id="@+id/register_login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#FF5ABFCD"
+            android:text="@string/login"
+            android:textColor="#FFFDFDFE"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/register_phone_ll"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/register_top"
+        android:background="#fdfdfe"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/phone"/>
+
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:src="#e9eced"/>
+
+        <EditText
+            android:background="@null"
+            android:id="@+id/register_phone_et"
+            android:inputType="phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:hint="@string/phonehint"
+            android:paddingLeft="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/register_password_ll"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/register_phone_ll"
+        android:background="#fdfdfe"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/password"/>
+
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:src="#e9eced"/>
+
+        <EditText
+            android:background="@null"
+            android:inputType="textPassword"
+            android:id="@+id/register_password_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:hint="@string/passwordhint"
+            android:paddingLeft="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/register_auth_ll"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/register_password_ll"
+        android:background="#fdfdfe"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/auth"/>
+
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="40dp"
+            android:src="#e9eced"/>
+
+        <EditText
+            android:background="@null"
+            android:inputType="number"
+            android:id="@+id/register_auth_et"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"/>
+        <Button
+            android:id="@+id/register_get_auth_btn"
+            android:layout_marginRight="15dp"
+            android:textSize="18sp"
+            android:textColor="@color/bgTextWhite"
+            android:background="@drawable/getauth__btn_shape"
+            android:text="@string/getauth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/register_register"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/register_auth_ll"
+        android:textSize="20sp"
+        android:textColor="@color/bgTextWhite"
+        android:text="注  册"
+        android:background="@color/bgWidgetBule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+</RelativeLayout>
