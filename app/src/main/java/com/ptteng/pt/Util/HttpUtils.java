@@ -15,7 +15,15 @@ import java.net.URL;
  * @author zhy
  */
 public class HttpUtils {
+    /**
+     * API地址
+     */
     public static final String URL = "http://123.59.108.52";
+
+    /**
+     * 搜索护工
+     */
+    public static final String GET_SEARCH_CARER="/a/u/work/search";
     private static final int TIMEOUT_IN_MILLIONS = 5000;
 
     public interface CallBack {

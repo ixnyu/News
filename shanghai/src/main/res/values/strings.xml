@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ShangHai</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="rb_txt1">首页</string>
+    <string name="rb_text2">新闻</string>
+    <string name="rb_text3">智慧服务</string>
+    <string name="rb_text4">政务</string>
+    <string name="rb_text5">设置</string>
+</resources>

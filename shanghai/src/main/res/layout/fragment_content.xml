@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <com.xnyu.shanghai.View.MyViewPager
+        android:id="@+id/fragment_content_vp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <RadioGroup
+        android:id="@+id/home_bom_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bottom_tab_bg"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/home_home_rb"
+            style="@style/home_bom_rg"
+            android:drawableTop="@drawable/home_home_bg_selector"
+            android:text="@string/rb_txt1"
+            android:textColor="@drawable/home_btn_text_selector"/>
+
+        <RadioButton
+            style="@style/home_bom_rg"
+            android:id="@+id/home_news_rb"
+            android:drawableTop="@drawable/home_news_bg_selector"
+            android:text="@string/rb_text2"
+            android:textColor="@drawable/home_btn_text_selector"/>
+
+        <RadioButton
+            android:id="@+id/home_smart_rb"
+            style="@style/home_bom_rg"
+            android:drawableTop="@drawable/home_smartservice_bg_selector"
+            android:text="@string/rb_text3"
+            android:textColor="@drawable/home_btn_text_selector"/>
+
+        <RadioButton
+            android:id="@+id/home_gov_rb"
+            style="@style/home_bom_rg"
+            android:drawableTop="@drawable/home_gov_bg_selector"
+            android:text="@string/rb_text4"
+            android:textColor="@drawable/home_btn_text_selector"/>
+
+        <RadioButton
+            android:id="@+id/home_setting_rb"
+            style="@style/home_bom_rg"
+            android:drawableTop="@drawable/home_setting_bg_selector"
+            android:text="@string/rb_text5"
+            android:textColor="@drawable/home_btn_text_selector"/>
+    </RadioGroup>
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.support.v4.widget.SwipeRefreshLayout;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.bigkoo.pickerview.OptionsPickerView;
+import com.google.gson.Gson;
+import com.ptteng.pt.Base.BaseApplication;
 import com.ptteng.pt.Bean.CarerBean;
 import com.ptteng.pt.R;
+import com.ptteng.pt.Util.BitMapHelper;
+import com.ptteng.pt.Util.BitmapCache;
+import com.ptteng.pt.Util.HttpUtils;
+import com.ptteng.pt.Util.T;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.Callback;
 
+
+import org.xutils.x;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * Created by xnyu on 2016/1/17.
@@ -36,36 +53,27 @@ public class CarerFragment extends Fragment {
     private SwipeRefreshLayout mSrfl;
     private ArrayList<CarerBean> mCarerBeans = new ArrayList<>();
 
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
-                   mSrfl.setRefreshing(false);
+                    mSrfl.setRefreshing(false);
                     mMyAdapter.notifyDataSetChanged();
                     break;
             }
         }
     };
     private MyAdapter mMyAdapter;
+    private List<CarerBean.DataEntity> mCarer = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_find_carer, null);
-        for (int i = 0; i < 20; i++) {
-            if (i % 4 == 0) {
-                mCarerBeans.add(i, new CarerBean("我是" + (i + 1), "上海.徐家汇", 2));
-            } else if (i % 5 == 0) {
-                mCarerBeans.add(i, new CarerBean("我是" + (i + 1), "深圳.华强北", 3));
-            } else {
-                mCarerBeans.add(i, new CarerBean("我是" + (i + 1), "广州.白云区", 1));
-            }
-
-        }
         ListView listView = (ListView) v.findViewById(R.id.fragment_find_carer_lv);
-        mMyAdapter = new MyAdapter(inflater, mCarerBeans);
+        mMyAdapter = new MyAdapter(inflater,mCarer);
         listView.setAdapter(mMyAdapter);
         mSrfl = (SwipeRefreshLayout) v.findViewById(R.id.find_carer_srfl);
         //设置圆圈颜色
@@ -77,21 +85,26 @@ public class CarerFragment extends Fragment {
                     @Override
                     public void run() {
                         mCarerBeans.clear();
-                        for (int i = 0; i < 20; i++) {
-                            if (i % 4 == 0) {
-                                mCarerBeans.add(i, new CarerBean("更新" + (i + 1), "北京.通州.果园", 2));
-                            } else if (i % 5 == 0) {
-                                mCarerBeans.add(i, new CarerBean("更新" + (i + 1), "深圳.华强北", 3));
-                            } else {
-                                mCarerBeans.add(i, new CarerBean("更新" + (i + 1), "广州.白云区", 1));
-                            }
-                        }
+                        OkHttpUtils.get().url(HttpUtils.URL + HttpUtils.GET_SEARCH_CARER).build()
+                                .execute(new CarerCallback() {
+                                    @Override
+                                    public void onError(Call call, Exception e) {
 
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                                    }
+
+                                    @Override
+                                    public void onResponse(CarerBean response) {
+                                        if (response.getCode() == 200) {
+                                            for (int i = 0; i < 40; i++) {
+                                                mCarer.add(response.getData().get(i));
+                                            }
+                                            mHandler.sendEmptyMessage(1);
+                                        } else {
+                                            T.showShort(BaseApplication.getApplication(),response.getMessage());
+                                            return;
+                                        }
+                                    }
+                                });
                         mHandler.sendEmptyMessage(1);
                     }
                 }.start();
@@ -177,13 +190,33 @@ public class CarerFragment extends Fragment {
     }
 
 
+    /**
+     *  通过ImageLoader加载及缓存网络图片
+     　　　*
+     *  new ImageLoader(RequestQueue queue,ImageCache imageCache)
+     *  queue：请求队列
+     *  imageCache：一个用于图片缓存的接口，一般需要传入它的实现类
+     *
+     *  getImageListener(ImageView view, int defaultImageResId, int errorImageResId)
+     *  view：ImageView对象
+     *  defaultImageResId：默认的图片的资源Id
+     *  errorImageResId：网络图片加载失败时显示的图片的资源Id
+     */
+    private void loadImageWithCache(ImageView image,String url) {
+//        String url = "http://pic20.nipic.com/20120409/9188247_091601398179_2.jpg";
+        ImageLoader loader = new ImageLoader(BaseApplication.getHttpQueues(), new BitmapCache());
+        ImageLoader.ImageListener listener = loader.getImageListener(image,R.mipmap.home_head,R.mipmap.home_head);
+        //加载及缓存网络图片
+        loader.get(url,listener);
+    }
+
     class MyAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
-        private ArrayList<CarerBean> mCarerBeans;
+        private List<CarerBean.DataEntity> mCarerBeans;
 
-        public MyAdapter(LayoutInflater inflater, ArrayList<CarerBean> list) {
+        public MyAdapter(LayoutInflater inflater, List<CarerBean.DataEntity> list) {
             mInflater = inflater;
-            mCarerBeans = list;
+            mCarerBeans =  list;
         }
 
         @Override
@@ -203,7 +236,7 @@ public class CarerFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
+            final ViewHolder holder;
             if (convertView == null) {
                 holder = new ViewHolder();
                 convertView = mInflater.inflate(R.layout.fragment_carer_item, null);
@@ -215,16 +248,20 @@ public class CarerFragment extends Fragment {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.head_img.setImageResource(R.mipmap.head);
-            if (mCarerBeans.get(position).getLv() == 1) {
+//            holder.head_img.setImageResource(R.mipmap.head);
+            loadImageWithCache(holder.head_img,mCarerBeans.get(position).getPhoto());
+            if (mCarerBeans.get(position).getLevel() == 1) {
                 holder.lv_img.setImageResource(R.mipmap.carer_lv1);
-            } else if (mCarerBeans.get(position).getLv() == 2) {
+            } else if (mCarerBeans.get(position).getLevel() == 2) {
                 holder.lv_img.setImageResource(R.mipmap.carer_lv2);
             } else {
                 holder.lv_img.setImageResource(R.mipmap.carer_lv3);
             }
             holder.carer_name.setText(mCarerBeans.get(position).getName());
             holder.carer_location.setText(mCarerBeans.get(position).getLocation());
+            System.out.println(mCarerBeans.get(position).getPhoto());
+//            x.image().bind(holder.head_img, mCarerBeans.get(position).getPhoto(), BitMapHelper.options);
+
             return convertView;
         }
     }
@@ -234,5 +271,15 @@ public class CarerFragment extends Fragment {
         public ImageView lv_img;
         public TextView carer_name;
         public TextView carer_location;
+    }
+
+    abstract class CarerCallback extends Callback<CarerBean> {
+
+        @Override
+        public CarerBean parseNetworkResponse(Response response) throws IOException {
+            String string = response.body().string();
+            CarerBean carerBean = new Gson().fromJson(string, CarerBean.class);
+            return carerBean;
+        }
     }
 }
