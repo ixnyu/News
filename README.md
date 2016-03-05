@@ -6,7 +6,7 @@
 >* 用Gson解析网络数据
 >* 用Picasso加载缓存图片
 >* 使用ShareSDK集成新浪微博,QQ,微信等第三方平台登录和分享
->* 自定义ListView实现下路刷新和下拉加载
+>* 自定义ListView实现下拉刷新和下拉加载
 >* 用RecyclerView实现瀑布流
 >* 集成极光推送
 
