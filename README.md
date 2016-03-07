@@ -10,6 +10,10 @@
 >* 用StaggeredGridView实现瀑布流
 >* 集成极光推送
 
+![](http://ww2.sinaimg.cn/mw690/92260e9cjw1f1oclf0vnjj20fd0qfq6j.jpg)       
+![](http://ww4.sinaimg.cn/mw690/92260e9cjw1f1ocn5jpk0j20fd0qitdq.jpg)
+![](http://ww2.sinaimg.cn/mw690/92260e9cjw1f1ocn6kneyj20f90qf7a3.jpg)
+
 ##使用到的库
 	dependencies {
 	    compile 'com.android.support:appcompat-v7:23.1.1'
