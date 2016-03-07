@@ -1,7 +1,6 @@
 # News
 ##可以学到:
 >* 自定义基类Activity
->* 使用Webview时避免内存泄露
 >* OKhttp封装框架的用法
 >* 用Gson解析网络数据
 >* 用Picasso加载缓存图片
