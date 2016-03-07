@@ -10,9 +10,7 @@
 >* 用StaggeredGridView实现瀑布流
 >* 集成极光推送
 
-![](http://ww2.sinaimg.cn/mw690/92260e9cjw1f1oclf0vnjj20fd0qfq6j.jpg)       
-![](http://ww4.sinaimg.cn/mw690/92260e9cjw1f1ocn5jpk0j20fd0qitdq.jpg)
-![](http://ww2.sinaimg.cn/mw690/92260e9cjw1f1ocn6kneyj20f90qf7a3.jpg)
+<img src="http://ww2.sinaimg.cn/mw690/92260e9cjw1f1oclf0vnjj20fd0qfq6j.jpg" title="screenshot" width="270" height="486" />   <img src="http://ww4.sinaimg.cn/mw690/92260e9cjw1f1ocn5jpk0j20fd0qitdq.jpg" alt="screenshot" title="screenshot" width="270" height="486" /><img src="http://ww2.sinaimg.cn/mw690/92260e9cjw1f1ocn6kneyj20f90qf7a3.jpg" alt="screenshot" title="screenshot" width="270" height="486" />
 
 ##使用到的库
 	dependencies {
